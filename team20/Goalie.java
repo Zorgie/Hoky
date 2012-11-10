@@ -36,6 +36,10 @@ public class Goalie extends GoalKeeper {
 
 	// Intelligence of goalie.
 	public void step() {
+		if(hasPuck()){
+			shoot(getPlayer(5), MAX_SHOT_SPEED);
+			return;
+		}
 		skate(GOAL_POSITION.getX() + 50, GOAL_POSITION.getY(), 200);
 		turn(getPuck(), MAX_TURN_SPEED);
 	}
