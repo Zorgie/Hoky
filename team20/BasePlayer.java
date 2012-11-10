@@ -13,7 +13,7 @@ import java.util.Random;
 public abstract class BasePlayer extends Player {
 	// The middle of the opponents goal, on the goal line
 	protected static final Position GOAL_POSITION = new Position(2600, 0);
-	private Random rnd;
+	protected Random rnd;
 	protected boolean penalty;
 	private ArrayList<IPlayer> teamMembers= new ArrayList<IPlayer>();
 	private IPlayer self;

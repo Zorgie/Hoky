@@ -28,10 +28,9 @@ public class Center extends BasePlayer {
 			double closest = distanceToClosestOpponent();
 			if (closest < 300) {
 				setMessage("Climbin' your windows, shatching yo' people up!");
-				shoot(getGoalKeeper(6), MAX_SHOT_SPEED);
-				setDebugPoint(getPlayer(3).getX(), getPlayer(3).getY(),
-						Color.MAGENTA);
-				showDebugPoint(true);
+				int targetPlayer = 3 + rnd.nextInt()%2;
+				shoot(getPlayer(targetPlayer), MAX_SHOT_SPEED);
+				
 			} else {
 				penaltyShot();
 			}
@@ -50,7 +49,7 @@ public class Center extends BasePlayer {
 			if (puckAtOrigin()) {
 				setMessage("Faceoff, motherfucker!");
 				setAimOnStick(true);
-				skate(getX() + 1000, getY()+100, 100);
+				skate(getX() + 1000, getY(), 100);
 			} else {
 				setMessage("Dolla dolla bill, y'all!");
 				setAimOnStick(true);
