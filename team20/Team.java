@@ -27,8 +27,8 @@ public class Team implements ITeam {
     // Get the other five players of the team.
     public Player getPlayer(int index) {
 	switch (index) {
-	case 1: return new Defender(); // Left defender
-	case 2: return new Defender(); // Right defender
+	case 1: return new Defender(0); // Left defender
+	case 2: return new Defender(1); // Right defender
 	case 3: return new Forward(0); // Left forward
 	case 4: return new Forward(1); // Right forward
 	case 5: return new Center(); // Center

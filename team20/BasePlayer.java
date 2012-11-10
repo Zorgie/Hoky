@@ -32,13 +32,19 @@ public abstract class BasePlayer extends Player {
 			IPlayer cur = getPlayer(i);
 
 			if (cur.isOpponent()) {
-				double oppDist = Util.dist(getX() - cur.getX(), getY() - cur.getY()) + Util.dist(friend.getX() - cur.getX(), friend.getY() - cur.getY());
-				if(oppDist / friendDist < 1.05){
-					return true;
+				// Check if opponent is between.
+				double friendXDist = Math.abs(getX() - friend.getX());
+				double friendYDist = Math.abs(getY() - friend.getY());
+				if (Math.abs(cur.getX() - getX()) < friendXDist && Math.abs(cur.getX() - friend.getX()) < friendXDist
+						&& Math.abs(cur.getY() - getY()) < friendYDist && Math.abs(cur.getY() - friend.getY()) < friendYDist) {
+					double oppDist = Util.dist(getX() - cur.getX(), getY() - cur.getY()) + Util.dist(friend.getX() - cur.getX(), friend.getY() - cur.getY());
+					if (oppDist / friendDist < 1.05) {
+						return true;
+					}
 				}
 			}
 		}
-		
+
 		return false;
 	}
 
@@ -49,13 +55,13 @@ public abstract class BasePlayer extends Player {
 	public boolean puckAtOrigin() {
 		return Util.dist(getPuck().getX() - puckOrigin.getX(), getPuck().getY() - puckOrigin.getY()) < 2;
 	}
-	
-	public boolean enemyAhead(){
-		for(int i=0; i<12; i++){
+
+	public boolean enemyAhead() {
+		for (int i = 0; i < 12; i++) {
 			IPlayer cur = getPlayer(i);
-			
-			if(cur.isOpponent() && cur != getGoalKeeper(6)){
-				if(cur.getX() > getX())
+
+			if (cur.isOpponent() && cur != getGoalKeeper(6)) {
+				if (cur.getX() > getX())
 					return true;
 			}
 		}
@@ -99,12 +105,14 @@ public abstract class BasePlayer extends Player {
 	}
 
 	public boolean teamHeldPuck() {
-		for (IPlayer player : teamMembers) {
-			if (player.hasPuck()) {
-				return true;
+		for(int i=0; i<12; i++){
+			IPlayer p = getPlayer(i);
+			if (p.isOpponent()){
+				if(p.hasPuck())
+					return false;
 			}
 		}
-		return false;
+		return true;
 
 	}
 
@@ -151,24 +159,53 @@ public abstract class BasePlayer extends Player {
 			penaltyShot();
 		}
 	}
-	
 
-	public void pass(IPlayer target){
-		double dist = Util.dist(getX() - target.getX(), getY() - target.getY());
+	public void shablam() {
+		Position target = null;
+		if (getY() > 400) {
+			target = new Position(2550, -(getY() / 5));
+		} else if (getY() < -400) {
+			target = new Position(2550, getY() / 5);
+		} else if (getY() < 0) {
+			target = new Position(2550, 20);
+		} else {
+			target = new Position(2550, -20);
+		}
+		setDebugPoint(target.getX(), target.getY(), Color.GREEN);
+		showDebugPoint(true);
+		shoot(target, MAX_SHOT_SPEED);
+
 	}
-	
-	public void kamikaze(){
+
+	public void pass(IPlayer target) {
+		// double distance = Util.dist(target.getX() - getX(), target.getY() -
+		// getY());
+		Position p = lookInFront(target, 1500);
+		shoot(p, 1000);
+		setDebugPoint(p.getX(), p.getY(), Color.GREEN);
+		showDebugPoint(true);
+	}
+
+	public Position lookInFront(IPlayer target, int cm) {
+		int cmx = (int) (cm * Math.cos(Math.toRadians(target.getHeading())));
+		int cmy = (int) (cm * Math.sin(Math.toRadians(target.getHeading())));
+		return new Position((target.getX() + cmx), (target.getY() + cmy));
+	}
+
+	public void kamikaze() {
 		setAimOnStick(true);
 
 		setMessage("RAAAMBOOOO.");
-		
-		if(!hasPuck())
+
+		if (!hasPuck())
 			return;
 
 		Position targetPos = new Position(2300, 500);
 
 		if (getX() > 1500 && getX() < 2500)
-			shoot(GOAL_POSITION.getX() -  25, GOAL_POSITION.getY(), MAX_SHOT_SPEED);
+			// shoot(GOAL_POSITION.getX() - 25, GOAL_POSITION.getY(),
+			// MAX_SHOT_SPEED);
+			shablam();
 		else
 			skate(targetPos, MAX_SPEED);
 	}

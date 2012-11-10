@@ -10,7 +10,7 @@ public class Center extends BasePlayer {
 
 	// Name of center player
 	public String getName() {
-		return "Center";
+		return "Overly Attached Center";
 	}
 	
 	
@@ -30,7 +30,10 @@ public class Center extends BasePlayer {
 				boolean passed = false;
 				for(int i : playerPrio){
 					if(!isBlocked(getPlayer(i))){
-						shoot(getPlayer(i), 1000);
+						if(i == 3 || i == 4)
+							pass(getPlayer(i));
+						else
+							shoot(getPlayer(i), 1000);
 						passed = true;
 						break;
 					}

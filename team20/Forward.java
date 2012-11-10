@@ -9,10 +9,12 @@ public class Forward extends BasePlayer {
 	private boolean forward;
 	private boolean initiated;
 	private boolean left;
+	private int id;
 
 	// Number of forward
 
 	public Forward(int which) {
+		id = which;
 		if (which == 0) {
 			forwardPoint = new Position(866, -500);
 			forwardReturn = new Position(-867, -500);
@@ -34,7 +36,9 @@ public class Forward extends BasePlayer {
 
 	// Name of forward
 	public String getName() {
-		return "Forward";
+		if(id == 0)
+			return "Ridiculously Photogenetic Forward";
+		return "Bad Luck Forward";
 	}
 
 	// Intelligence of forward

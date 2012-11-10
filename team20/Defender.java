@@ -8,9 +8,17 @@ public class Defender extends BasePlayer {
 		return 10;
 	}
 
+	private int id;
+
+	public Defender(int a) {
+		id = a;
+	}
+
 	// Name of defender
 	public String getName() {
-		return "Defender";
+		if(id == 0)
+			return "Skogsturken";
+		return "Laserturken";
 	}
 
 	// Make left defender left handed, right defender right handed.
@@ -22,25 +30,26 @@ public class Defender extends BasePlayer {
 	public void init() {
 		setAimOnStick(false);
 	}
-	public void ZonePlay(int zone){
-		int movex=0;
-		int movey=0;
-		if(getIndex()==1){
-			movey=750;
-		}else{
-			movey=-750;
+
+	public void ZonePlay(int zone) {
+		int movex = 0;
+		int movey = 0;
+		if (getIndex() == 1) {
+			movey = 750;
+		} else {
+			movey = -750;
 		}
-		if(zone==1){
-			movex=-2300;
+		if (zone == 1) {
+			movex = -2300;
 		}
-		if(zone==2){
-			movex=-150;
+		if (zone == 2) {
+			movex = -150;
 		}
-		if(zone==3){
-			movex=2300;
+		if (zone == 3) {
+			movex = 2300;
 		}
-		skate(movex,movey,MAX_SPEED);
-		
+		skate(movex, movey, MAX_SPEED);
+
 	}
 
 	// Defender intelligence
@@ -51,27 +60,19 @@ public class Defender extends BasePlayer {
 			return;
 		}
 		setMessage("Not penalty.");
-		
-		if (!teamHeldPuck()){
-			int zone=getPuckZone();
-			
-			
-			setMessage("Defending Zone "+zone);
-			if(Util.dist(this, getPuck())<1000){
-				setMessage("Chasing Puck "+zone);
+
+		if (hasPuck()) {
+			pass(getPlayer(5));
+			endStep();
+			return;
+		}
+
+		if (!teamHeldPuck()) {
+
+			int zone = getPuckZone();
+
+			if (getPuck().getHolder() != null)
 				skate(getPuck().getHolder(), MAX_SPEED);
-			}
-			ZonePlay(zone);
-		}
-		if (teamHeldPuck()){
-			int zone=getPuckZone();
-			setMessage("Zone Playing "+zone);
-			ZonePlay(zone);
-		}
-		
-		if(this.hasPuck()){
-			setMessage("");
-			shoot(getPlayer(5),4444);
 		}
 
 		endStep();
