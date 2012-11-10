@@ -23,7 +23,7 @@ public class Team implements ITeam {
 
     // Get the goal keeper of the team.
     public GoalKeeper getGoalKeeper() { return new Goalie(); }
-
+   
     // Get the other five players of the team.
     public Player getPlayer(int index) {
 	switch (index) {

@@ -30,12 +30,12 @@ public class Defender extends BasePlayer {
 		}
 		setMessage("Not penalty.");
 		
-		if (getPuck().isHeld())
+		if (!teamHeldPuck())
 			skate(getPuck().getHolder(), MAX_SPEED);
 		else if (getIndex() == 1)
-			skate(this.GOAL_POSITION.getX()+600,this.GOAL_POSITION.getY()-700,1000);
+			skate(Goalie.GOAL_POSITION.getX()+600,Goalie.GOAL_POSITION.getY()-700,1000);
 		else
-			skate(this.GOAL_POSITION.getX()+600,this.GOAL_POSITION.getY()+700,1000);
+			skate(Goalie.GOAL_POSITION.getX()+600,Goalie.GOAL_POSITION.getY()+700,1000);
 
 		endStep();
 	}
