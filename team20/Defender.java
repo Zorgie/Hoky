@@ -20,6 +20,26 @@ public class Defender extends BasePlayer {
 	public void init() {
 		setAimOnStick(false);
 	}
+	public void DefendZone(int zone){
+		int movex=0;
+		int movey=0;
+		if(getIndex()==1){
+			movey=750;
+		}else{
+			movey=-750;
+		}
+		if(zone==1){
+			movex=-2300;
+		}
+		if(zone==2){
+			movex=-150;
+		}
+		if(zone==3){
+			movex=2300;
+		}
+		skate(movex,movey,1000);
+		
+	}
 
 	// Defender intelligence
 	public void step() {

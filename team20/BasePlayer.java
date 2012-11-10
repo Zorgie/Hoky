@@ -49,6 +49,16 @@ public abstract class BasePlayer extends Player {
 	public void moveToZone(int zone){
 		
 	}
+	public int puckZone(){
+		if(getPuck().getX()<-766){
+			return 1;
+		}
+		else if(getPuck().getX()>2133){
+			return 3;
+		}else{
+			return 2;
+		}
+	}
 
 	// Penalty shot
 	public void penaltyShot() {
