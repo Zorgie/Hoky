@@ -46,6 +46,9 @@ public abstract class BasePlayer extends Player {
 		return false;
 		
 	}
+	public void moveToZone(int zone){
+		
+	}
 
 	// Penalty shot
 	public void penaltyShot() {
