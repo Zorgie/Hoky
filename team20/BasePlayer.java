@@ -3,6 +3,7 @@ package team20;
 import hockey.api.IPlayer;
 import hockey.api.Player;
 import hockey.api.Position;
+import hockey.api.Util;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -14,10 +15,32 @@ public abstract class BasePlayer extends Player {
 	private Random rnd;
 	protected boolean penalty;
 	private ArrayList<IPlayer> teamMembers= new ArrayList<IPlayer>();
+	private IPlayer self;
 	
 	// Left handed?
 	public boolean isLeftHanded() {
 		return false;
+	}
+	
+	public void setPlayer(IPlayer player){
+		self = player;
+	}
+	
+	public double distanceToClosestOpponent(){
+	    IPlayer closest = null;
+	    for (int i = 0; i < 12; ++i) { // G� through all players
+		IPlayer cur = getPlayer(i);
+
+		if (cur.isOpponent() && // If player is opponent...
+		    (closest == null || 
+		     Util.dist(getX() - cur.getX(), // ...and closest so far...
+			       getY() - cur.getY()) <
+		     Util.dist(getX() - closest.getX(),
+			       getY() - closest.getY())))
+			closest = cur; // ... then remember him
+	    }
+	    return Util.dist(getX() - closest.getX(), getY() - closest.getY());
+	    		
 	}
 
 	// Initiate
