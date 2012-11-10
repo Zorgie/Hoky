@@ -58,12 +58,19 @@ public class Defender extends BasePlayer {
 			ZonePlay(zone);
 			setMessage("Defending Zone");
 			if(Util.dist(this, getPuck())<900){
+				setMessage("Chasing Puck");
 			skate(getPuck().getHolder(), MAX_SPEED);
 			}
 		}
 		if (teamHeldPuck()){
 			int zone=getPuckZone();
+			setMessage("Zone Playing");
 			ZonePlay(zone);
+		}
+		
+		if(this.hasPuck()){
+			setMessage("");
+			shoot(getPlayer(5),4444);
 		}
 
 		endStep();
