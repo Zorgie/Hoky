@@ -41,15 +41,15 @@ public class Forward extends BasePlayer {
 			shoot(getPlayer(5), 4444); // pass center player
 		} else {
 			if(!initiated){
-				skate(forwardPoint, MAX_SPEED/4);
+				skate(forwardPoint, MAX_SPEED/2);
 				forward = true;
 				initiated = true;
 			}
-			if (forward && getX() > 720){
+			if (forward && getX() > 650){
 					skate(forwardReturn, MAX_SPEED/4);
 					forward = false;
 			}
-			if(!forward && getX() <-5200/6){
+			if(!forward && getX() < 0){
 					skate(forwardPoint, MAX_SPEED/4);
 					forward = true;
 			}
