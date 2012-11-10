@@ -39,7 +39,7 @@ public class Defender extends BasePlayer {
 		if(zone==3){
 			movex=2300;
 		}
-		skate(movex,movey,1000);
+		skate(movex,movey,MAX_SPEED);
 		
 	}
 
@@ -55,16 +55,17 @@ public class Defender extends BasePlayer {
 		if (!teamHeldPuck()){
 			int zone=getPuckZone();
 			
-			ZonePlay(zone);
-			setMessage("Defending Zone");
-			if(Util.dist(this, getPuck())<900){
-				setMessage("Chasing Puck");
-			skate(getPuck().getHolder(), MAX_SPEED);
+			
+			setMessage("Defending Zone "+zone);
+			if(Util.dist(this, getPuck())<1000){
+				setMessage("Chasing Puck "+zone);
+				skate(getPuck().getHolder(), MAX_SPEED);
 			}
+			ZonePlay(zone);
 		}
 		if (teamHeldPuck()){
 			int zone=getPuckZone();
-			setMessage("Zone Playing");
+			setMessage("Zone Playing "+zone);
 			ZonePlay(zone);
 		}
 		
