@@ -49,7 +49,7 @@ public abstract class BasePlayer extends Player {
 	public void moveToZone(int zone){
 		
 	}
-	public int puckZone(){
+	public int getPuckZone(){
 		if(getPuck().getX()<-766){
 			return 1;
 		}

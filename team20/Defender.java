@@ -1,5 +1,7 @@
 package team20;
 
+import hockey.api.Util;
+
 public class Defender extends BasePlayer {
 	// Number of defender
 	public int getNumber() {
@@ -20,7 +22,7 @@ public class Defender extends BasePlayer {
 	public void init() {
 		setAimOnStick(false);
 	}
-	public void DefendZone(int zone){
+	public void ZonePlay(int zone){
 		int movex=0;
 		int movey=0;
 		if(getIndex()==1){
@@ -50,12 +52,19 @@ public class Defender extends BasePlayer {
 		}
 		setMessage("Not penalty.");
 		
-		if (!teamHeldPuck())
+		if (!teamHeldPuck()){
+			int zone=getPuckZone();
+			
+			ZonePlay(zone);
+			setMessage("Defending Zone");
+			if(Util.dist(this, getPuck())<900){
 			skate(getPuck().getHolder(), MAX_SPEED);
-		else if (getIndex() == 1)
-			skate(Goalie.GOAL_POSITION.getX()+600,Goalie.GOAL_POSITION.getY()-700,1000);
-		else
-			skate(Goalie.GOAL_POSITION.getX()+600,Goalie.GOAL_POSITION.getY()+700,1000);
+			}
+		}
+		if (teamHeldPuck()){
+			int zone=getPuckZone();
+			ZonePlay(zone);
+		}
 
 		endStep();
 	}
