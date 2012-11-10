@@ -23,19 +23,23 @@ public class Center extends BasePlayer {
 		}
 		setMessage("Not penalty.");
 		if (hasPuck()) {
-			// Distance to enemy goal keeper is less than 1k.
-			IPlayer self = getPlayer(5);
-			IPlayer goalie = getGoalKeeper(6);
-			double goalDist = Math
-					.sqrt(Math.pow(self.getX() - goalie.getX(), 2)
-							+ Math.pow(self.getY() - goalie.getY(), 2));
-			if (goalDist < 1000) {
-				penaltyShot();
-			} else {
-				skate(GOAL_POSITION, MAX_SPEED);
-			}
-		} else
-			skate(0, getPuck().getY(), 1000);
+			penaltyShot();
+//			// Distance to enemy goal keeper is less than 1k.
+//			IPlayer self = getPlayer(5);
+//			IPlayer goalie = getGoalKeeper(6);
+//			double goalDist = Math
+//					.sqrt(Math.pow(self.getX() - goalie.getX(), 2)
+//							+ Math.pow(self.getY() - goalie.getY(), 2));
+//			if (goalDist < 1500) {
+//				penaltyShot();
+//			} else {
+//				skate(GOAL_POSITION, MAX_SPEED);
+//			}
+		} else{
+			setMessage("Trying to get that goffing pock!");
+			setAimOnStick(true);
+			skate(getPuck(), MAX_SPEED);
+		}
 
 		endStep();
 	}

@@ -43,13 +43,14 @@ public abstract class BasePlayer extends Player {
 		}
 		
 		boolean shoot = false;
+		Position targetPos = new Position(2600, 500);
 
 		if (getX() > 1500)
 			shoot = true;
 		if (shoot) {
 			shoot(GOAL_POSITION, MAX_SHOT_SPEED);
 		} else {
-			skate(GOAL_POSITION.getX(), GOAL_POSITION.getY() + 500, MAX_SPEED);
+			skate(targetPos, MAX_SPEED);
 		}
 	}
 	
