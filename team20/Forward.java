@@ -7,6 +7,7 @@ public class Forward extends BasePlayer {
 	private Position forwardReturn;
 	private boolean forward;
 	private boolean initiated;
+	private boolean left;
 	// Number of forward
 	
 	public Forward(int which){
@@ -16,6 +17,7 @@ public class Forward extends BasePlayer {
 		}else{
 			forwardPoint = new Position(866, 500);
 			forwardReturn = new Position(-867, 500);
+			left = true;
 			
 		}
 	}
@@ -23,7 +25,9 @@ public class Forward extends BasePlayer {
 	public int getNumber() {
 		return 15;
 	}
-
+	
+	public boolean isLeftHanded(){ return left; }
+	
 	// Name of forward
 	public String getName() {
 		return "Forward";
