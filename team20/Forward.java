@@ -46,11 +46,11 @@ public class Forward extends BasePlayer {
 				initiated = true;
 			}
 			if (forward && getX() > 650){
-					skate(forwardReturn, MAX_SPEED/4);
+					skate(forwardReturn, MAX_SPEED/2);
 					forward = false;
 			}
 			if(!forward && getX() < 0){
-					skate(forwardPoint, MAX_SPEED/4);
+					skate(forwardPoint, MAX_SPEED/2);
 					forward = true;
 			}
 		}
