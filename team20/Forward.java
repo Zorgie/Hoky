@@ -3,8 +3,17 @@ package team20;
 import hockey.api.Position;
 
 public class Forward extends BasePlayer {
-	private Position forwardPoint = new Position(2600, 500);
+	private Position forwardPoint;
 	// Number of forward
+	
+	public Forward(int which){
+		if(which==0){
+			forwardPoint = new Position(2600, 500);
+		}else{
+			forwardPoint = new Position(2600, -500);
+		}
+	}
+	
 	public int getNumber() {
 		return 15;
 	}
