@@ -1,5 +1,6 @@
 package team20;
 
+import hockey.api.IObject;
 import hockey.api.IPlayer;
 import hockey.api.Player;
 import hockey.api.Position;
@@ -16,6 +17,7 @@ public abstract class BasePlayer extends Player {
 	protected boolean penalty;
 	private ArrayList<IPlayer> teamMembers= new ArrayList<IPlayer>();
 	private IPlayer self;
+	private IObject puckOrigin;
 	
 	// Left handed?
 	public boolean isLeftHanded() {
@@ -24,6 +26,10 @@ public abstract class BasePlayer extends Player {
 	
 	public void setPlayer(IPlayer player){
 		self = player;
+	}
+	
+	public boolean puckAtOrigin(){
+		return Util.dist(getPuck().getX() - puckOrigin.getX(), getPuck().getY() - puckOrigin.getY()) < 2;
 	}
 	
 	public double distanceToClosestOpponent(){
@@ -55,6 +61,7 @@ public abstract class BasePlayer extends Player {
 
 	// Face off
 	public void faceOff() {
+		puckOrigin = new Position(getPuck().getX(), getPuck().getY());
 	}
 	
 	public void endStep(){
