@@ -33,9 +33,9 @@ public class Defender extends BasePlayer {
 		if (getPuck().isHeld())
 			skate(getPuck().getHolder(), MAX_SPEED);
 		else if (getIndex() == 1)
-			skate(this.GOAL_POSITION.getX()+600,this.GOAL_POSITION.getY()-700,1000);
+			skate(this.GOAL_POSITION.getX()-600,this.GOAL_POSITION.getY()-700,1000);
 		else
-			skate(this.GOAL_POSITION.getX()+600,this.GOAL_POSITION.getY()+700,1000);
+			skate(this.GOAL_POSITION.getX()-600,this.GOAL_POSITION.getY()+700,1000);
 
 		endStep();
 	}

@@ -1,9 +1,11 @@
 package team20;
 
+import hockey.api.IPlayer;
 import hockey.api.Player;
 import hockey.api.Position;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Random;
 
 public abstract class BasePlayer extends Player {
@@ -11,7 +13,8 @@ public abstract class BasePlayer extends Player {
 	protected static final Position GOAL_POSITION = new Position(2600, 0);
 	private Random rnd;
 	protected boolean penalty;
-
+	private ArrayList<IPlayer> teamMembers= new ArrayList<IPlayer>();
+	
 	// Left handed?
 	public boolean isLeftHanded() {
 		return false;
@@ -20,6 +23,11 @@ public abstract class BasePlayer extends Player {
 	// Initiate
 	public void init() {
 		rnd = new Random();
+		teamMembers.add(getPlayer(1));
+		teamMembers.add(getPlayer(2));
+		teamMembers.add(getPlayer(3));
+		teamMembers.add(getPlayer(4));
+		teamMembers.add(getPlayer(5));
 	}
 
 	// Face off
@@ -28,6 +36,15 @@ public abstract class BasePlayer extends Player {
 	
 	public void endStep(){
 		penalty = false;
+	}
+	public boolean teamHeldPuck(){
+		for(IPlayer player: teamMembers){
+			if(player.hasPuck()){
+				return true;
+			}
+		}
+		return false;
+		
 	}
 
 	// Penalty shot
