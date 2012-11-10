@@ -1,9 +1,6 @@
 package team20;
 
-import java.awt.Color;
-
-import hockey.Util;
-import hockey.api.IPlayer;
+import hockey.api.Position;
 
 public class Center extends BasePlayer {
 	// Number of center player
@@ -15,7 +12,8 @@ public class Center extends BasePlayer {
 	public String getName() {
 		return "Center";
 	}
-
+	
+	
 	// Center player's intelligence
 	public void step() {
 		preStep();
@@ -26,13 +24,22 @@ public class Center extends BasePlayer {
 		setMessage("Not penalty.");
 		if (hasPuck()) {
 			double closest = distanceToClosestOpponent();
-			if (closest < 300) {
+			if (closest < 300 && enemyAhead()) {
 				setMessage("Climbin' your windows, shatching yo' people up!");
-				int targetPlayer = 3 + rnd.nextInt()%2;
-				shoot(getPlayer(targetPlayer), MAX_SHOT_SPEED);
+				int[] playerPrio = {3, 4, 1, 2, 6};
+				boolean passed = false;
+				for(int i : playerPrio){
+					if(!isBlocked(getPlayer(i))){
+						shoot(getPlayer(i), 1000);
+						passed = true;
+						break;
+					}
+				}
+				if(!passed)
+					kamikaze();
 				
 			} else {
-				penaltyShot();
+				kamikaze();
 			}
 			// // Distance to enemy goal keeper is less than 1k.
 			// IPlayer self = getPlayer(5);

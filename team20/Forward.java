@@ -1,5 +1,6 @@
 package team20;
 
+import hockey.Util;
 import hockey.api.Position;
 
 public class Forward extends BasePlayer {
@@ -8,26 +9,29 @@ public class Forward extends BasePlayer {
 	private boolean forward;
 	private boolean initiated;
 	private boolean left;
+
 	// Number of forward
-	
-	public Forward(int which){
-		if(which==0){
+
+	public Forward(int which) {
+		if (which == 0) {
 			forwardPoint = new Position(866, -500);
 			forwardReturn = new Position(-867, -500);
-		}else{
+		} else {
 			forwardPoint = new Position(866, 500);
 			forwardReturn = new Position(-867, 500);
 			left = true;
-			
+
 		}
 	}
-	
+
 	public int getNumber() {
 		return 15;
 	}
-	
-	public boolean isLeftHanded(){ return left; }
-	
+
+	public boolean isLeftHanded() {
+		return left;
+	}
+
 	// Name of forward
 	public String getName() {
 		return "Forward";
@@ -42,23 +46,28 @@ public class Forward extends BasePlayer {
 		}
 		setMessage("Not penalty.");
 		if (hasPuck()) {
-			shoot(getPlayer(5), 4444); // pass center player
+			kamikaze();
 		} else {
-			if(!initiated){
-				skate(forwardPoint, MAX_SPEED/2);
-				forward = true;
-				initiated = true;
-			}
-			if (forward && getX() > 650){
-					skate(forwardReturn, MAX_SPEED/2);
-					forward = false;
-			}
-			if(!forward && getX() < 0){
-					skate(forwardPoint, MAX_SPEED/2);
+			if (!puckAtOrigin() && Util.dist(getPuck().getX() - getX(), getPuck().getY() - getY()) < 400) {
+				setAimOnStick(true);
+				skate(getPuck(), MAX_SPEED * 3 / 4);
+			} else {
+				if (!initiated) {
+					skate(forwardPoint, MAX_SPEED / 2);
 					forward = true;
+					initiated = true;
+				}
+				if (forward && getX() > 650) {
+					skate(forwardReturn, MAX_SPEED / 2);
+					forward = false;
+				}
+				if (!forward && getX() < 0) {
+					skate(forwardPoint, MAX_SPEED / 2);
+					forward = true;
+				}
 			}
 		}
-			
+
 		endStep();
 	}
 }

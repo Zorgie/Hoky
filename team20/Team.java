@@ -7,10 +7,10 @@ import hockey.api.ITeam;
 
 public class Team implements ITeam {
     // Team Short Name.  Max 4 characters.
-    public String getShortName() { return "___"; }
+    public String getShortName() { return "ROCK"; }
 
     // Team Name
-    public String getTeamName() { return "Team Template"; }
+    public String getTeamName() { return "Rock Solid"; }
 
     // Team color; body color
     public Color getTeamColor() { return Color.MAGENTA; }
