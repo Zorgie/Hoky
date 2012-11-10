@@ -11,11 +11,11 @@ public class Forward extends BasePlayer {
 	
 	public Forward(int which){
 		if(which==0){
-			forwardPoint = new Position(2600, -1000);
-			forwardReturn = new Position(0, -1000);
+			forwardPoint = new Position(866, -500);
+			forwardReturn = new Position(-867, -500);
 		}else{
-			forwardPoint = new Position(2600, 1000);
-			forwardReturn = new Position(0, 1000);
+			forwardPoint = new Position(866, 500);
+			forwardReturn = new Position(-867, 500);
 			
 		}
 	}
@@ -41,16 +41,16 @@ public class Forward extends BasePlayer {
 			shoot(getPlayer(5), 4444); // pass center player
 		} else {
 			if(!initiated){
-				skate(forwardPoint, MAX_SPEED);
+				skate(forwardPoint, MAX_SPEED/4);
 				forward = true;
 				initiated = true;
 			}
-			if (forward && getX() > 5200/6-100){
-					skate(forwardReturn, MAX_SPEED/2);
+			if (forward && getX() > 720){
+					skate(forwardReturn, MAX_SPEED/4);
 					forward = false;
 			}
-			if(!forward && getX() <-5200/6-100){
-					skate(forwardPoint, MAX_SPEED/2);
+			if(!forward && getX() <-5200/6){
+					skate(forwardPoint, MAX_SPEED/4);
 					forward = true;
 			}
 		}
