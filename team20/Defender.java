@@ -1,5 +1,7 @@
 package team20;
 
+import hockey.api.Util;
+
 public class Defender extends BasePlayer {
 	// Number of defender
 	public int getNumber() {
@@ -20,6 +22,26 @@ public class Defender extends BasePlayer {
 	public void init() {
 		setAimOnStick(false);
 	}
+	public void ZonePlay(int zone){
+		int movex=0;
+		int movey=0;
+		if(getIndex()==1){
+			movey=750;
+		}else{
+			movey=-750;
+		}
+		if(zone==1){
+			movex=-2300;
+		}
+		if(zone==2){
+			movex=-150;
+		}
+		if(zone==3){
+			movex=2300;
+		}
+		skate(movex,movey,MAX_SPEED);
+		
+	}
 
 	// Defender intelligence
 	public void step() {
@@ -30,12 +52,27 @@ public class Defender extends BasePlayer {
 		}
 		setMessage("Not penalty.");
 		
-		if (!teamHeldPuck())
-			skate(getPuck().getHolder(), MAX_SPEED);
-		else if (getIndex() == 1)
-			skate(Goalie.GOAL_POSITION.getX()+600,Goalie.GOAL_POSITION.getY()-700,1000);
-		else
-			skate(Goalie.GOAL_POSITION.getX()+600,Goalie.GOAL_POSITION.getY()+700,1000);
+		if (!teamHeldPuck()){
+			int zone=getPuckZone();
+			
+			
+			setMessage("Defending Zone "+zone);
+			if(Util.dist(this, getPuck())<1000){
+				setMessage("Chasing Puck "+zone);
+				skate(getPuck().getHolder(), MAX_SPEED);
+			}
+			ZonePlay(zone);
+		}
+		if (teamHeldPuck()){
+			int zone=getPuckZone();
+			setMessage("Zone Playing "+zone);
+			ZonePlay(zone);
+		}
+		
+		if(this.hasPuck()){
+			setMessage("");
+			shoot(getPlayer(5),4444);
+		}
 
 		endStep();
 	}
