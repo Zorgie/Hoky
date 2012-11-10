@@ -29,12 +29,13 @@ public class Defender extends BasePlayer {
 			return;
 		}
 		setMessage("Not penalty.");
+		
 		if (getPuck().isHeld())
 			skate(getPuck().getHolder(), MAX_SPEED);
 		else if (getIndex() == 1)
-			skate(-20000, -10000, 1000);
+			skate(this.GOAL_POSITION.getX()+600,this.GOAL_POSITION.getY()-700,1000);
 		else
-			skate(-20000, 10000, 1000);
+			skate(this.GOAL_POSITION.getX()+600,this.GOAL_POSITION.getY()+700,1000);
 
 		endStep();
 	}
