@@ -15,7 +15,7 @@ public class Forward extends BasePlayer {
 			forwardReturn = new Position(0, -500);
 		}else{
 			forwardPoint = new Position(2600, 500);
-			forwardReturn = new Position(2600, 500);
+			forwardReturn = new Position(0, 500);
 		}
 	}
 	
@@ -43,11 +43,11 @@ public class Forward extends BasePlayer {
 				skate(forwardPoint, MAX_SPEED);
 				forward = true;
 			}
-			if (forward && getX() > 1750){
+			if (forward && getX() > 1900){
 					skate(forwardReturn, MAX_SPEED/2);
 					forward = false;
 			}
-			if(!forward && getX() <1250){
+			if(!forward && getX() <1100){
 					skate(forwardPoint, MAX_SPEED/2);
 					forward = true;
 			}
