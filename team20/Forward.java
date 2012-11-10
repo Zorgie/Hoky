@@ -5,6 +5,8 @@ import hockey.api.Position;
 public class Forward extends BasePlayer {
 	private Position forwardPoint;
 	private Position forwardReturn;
+	private boolean forward;
+	private boolean initiated;
 	// Number of forward
 	
 	public Forward(int which){
@@ -13,7 +15,7 @@ public class Forward extends BasePlayer {
 			forwardReturn = new Position(0, -500);
 		}else{
 			forwardPoint = new Position(2600, 500);
-			forwardReturn = new Position(2600, 500);
+			forwardReturn = new Position(0, 500);
 		}
 	}
 	
@@ -37,22 +39,21 @@ public class Forward extends BasePlayer {
 		if (hasPuck()) {
 			shoot(getPlayer(5), 4444); // pass center player
 		} else {
-			if (this.getHeading() > -90 && this.getHeading() <=90){
-				if(getX() > 1750){
-					skate(forwardReturn, MAX_SPEED/2);
-					endStep();
-					return;
-				}
-			}else{
-				if(getX() <1250){
-					skate(forwardPoint, MAX_SPEED/2);
-					endStep();
-					return;
-				}
+			if(!initiated){
+				skate(forwardPoint, MAX_SPEED);
+				forward = true;
+				initiated = true;
 			}
-			skate(forwardPoint, MAX_SPEED); // get the puck
+			if (forward && getX() > 1900){
+					skate(forwardReturn, MAX_SPEED/2);
+					forward = false;
+			}
+			if(!forward && getX() <1100){
+					skate(forwardPoint, MAX_SPEED/2);
+					forward = true;
+			}
 		}
-
+			
 		endStep();
 	}
 }
