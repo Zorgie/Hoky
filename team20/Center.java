@@ -25,10 +25,16 @@ public class Center extends BasePlayer {
 		}
 		setMessage("Not penalty.");
 		if (hasPuck()) {
-			setMessage("Climbin' your windows, shatching yo' people up!");
-			shoot(-2600,-1000, MAX_SHOT_SPEED);
-			setDebugPoint(getPlayer(3).getX(), getPlayer(3).getY(), Color.MAGENTA);
-			showDebugPoint(true);
+			double closest = distanceToClosestOpponent();
+			if (closest < 300) {
+				setMessage("Climbin' your windows, shatching yo' people up!");
+				shoot(-2600, -1000, MAX_SHOT_SPEED);
+				setDebugPoint(getPlayer(3).getX(), getPlayer(3).getY(),
+						Color.MAGENTA);
+				showDebugPoint(true);
+			} else {
+				penaltyShot();
+			}
 			// // Distance to enemy goal keeper is less than 1k.
 			// IPlayer self = getPlayer(5);
 			// IPlayer goalie = getGoalKeeper(6);
@@ -44,7 +50,7 @@ public class Center extends BasePlayer {
 			if (getPuck().getX() == 0 && getPuck().getY() == 0) {
 				setMessage("Faceoff, motherfucker!");
 				setAimOnStick(true);
-				skate(1000,0, 100);
+				skate(1000, 0, 100);
 			} else {
 				setMessage("Dolla dolla bill, y'all!");
 				setAimOnStick(true);
